@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class LogManagerTest {
 
-    static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+    private static final Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     public static void main(String[] args) {
         Map<String,String> param = new HashMap<String,String>();
