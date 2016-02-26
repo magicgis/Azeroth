@@ -18,19 +18,19 @@ import java.util.TimeZone;
 /**
  * Created by fumanix on 2/24/16.
  */
-public class JSONMapper extends ObjectMapper{
+public class JSONUtils extends ObjectMapper{
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger logger = LogManager.getLogger(JSONMapper.class);
+    private static Logger logger = LogManager.getLogger(JSONUtils.class);
 
-    private static JSONMapper mapper;
+    private static JSONUtils mapper;
 
-    public JSONMapper() {
+    public JSONUtils() {
         this(JsonInclude.Include.NON_EMPTY);
     }
 
-    public JSONMapper(JsonInclude.Include include) {
+    public JSONUtils(JsonInclude.Include include) {
         // 设置输出时包含属性的风格
         if (include != null) {
             this.setSerializationInclusion(include);
@@ -64,9 +64,9 @@ public class JSONMapper extends ObjectMapper{
     /**
      * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
      */
-    public static JSONMapper getInstance() {
+    public static JSONUtils getInstance() {
         if (mapper == null){
-            mapper = new JSONMapper().enableSimple();
+            mapper = new JSONUtils().enableSimple();
         }
         return mapper;
     }
@@ -74,9 +74,9 @@ public class JSONMapper extends ObjectMapper{
     /**
      * 创建只输出初始值被改变的属性到Json字符串的Mapper, 最节约的存储方式，建议在内部接口中使用。
      */
-    public static JSONMapper nonDefaultMapper() {
+    public static JSONUtils nonDefaultMapper() {
         if (mapper == null){
-            mapper = new JSONMapper(JsonInclude.Include.NON_DEFAULT);
+            mapper = new JSONUtils(JsonInclude.Include.NON_DEFAULT);
         }
         return mapper;
     }
@@ -169,7 +169,7 @@ public class JSONMapper extends ObjectMapper{
      * 為False時時使用Enum的name()函數來讀寫Enum, 默認為False.
      * 注意本函數一定要在Mapper創建後, 所有的讀寫動作之前調用.
      */
-    public JSONMapper enableEnumUseToString() {
+    public JSONUtils enableEnumUseToString() {
         this.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
         this.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
         return this;
@@ -179,7 +179,7 @@ public class JSONMapper extends ObjectMapper{
      * 允许单引号
      * 允许不带引号的字段名称
      */
-    public JSONMapper enableSimple() {
+    public JSONUtils enableSimple() {
         this.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         this.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         return this;
@@ -198,7 +198,7 @@ public class JSONMapper extends ObjectMapper{
      * @return
      */
     public static String toJsonString(Object object){
-        return JSONMapper.getInstance().toJson(object);
+        return JSONUtils.getInstance().toJson(object);
     }
 
     /**
@@ -208,6 +208,6 @@ public class JSONMapper extends ObjectMapper{
      * @return
      */
     public static Object fromJsonString(String jsonString, Class<?> clazz){
-        return JSONMapper.getInstance().fromJson(jsonString, clazz);
+        return JSONUtils.getInstance().fromJson(jsonString, clazz);
     }
 }

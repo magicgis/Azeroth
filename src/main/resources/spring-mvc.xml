@@ -26,7 +26,7 @@
                             </property>
                             <property name="prettyPrint" value="false"/>
                             <property name="objectMapper">
-                                   <bean class="com.ease.azeroth.core.utils.JSONMapper"></bean>
+                                   <bean class="com.ease.azeroth.core.utils.JSONUtils"></bean>
                             </property>
                      </bean>
               </mvc:message-converters>

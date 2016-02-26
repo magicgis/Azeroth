@@ -26,16 +26,16 @@
 
        <!-- 安全认证过滤器 -->
        <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-              <property name="securityManager" ref="securityManager" />
-              <property name="loginUrl" value="${adminPath}/login" />
-              <property name="successUrl" value="${adminPath}?login" />
+              <property name="securityManager" ref="securityManager" />    <!--Shiro的核心安全接口 -->
+              <property name="loginUrl" value="${adminPath}/login" />      <!--登录时的链接-->
+              <property name="successUrl" value="${adminPath}?login" />    <!--登录成功后要跳转的链接-->
+              <property name="unauthorizedUrl" value="/unauthorized.jsp"/> <!--未认证时要跳转的链接-->
               <property name="filters">
                      <map>
-                            <entry key="cas" value-ref="casFilter"/>
                             <entry key="authc" value-ref="formAuthenticationFilter"/>
                      </map>
               </property>
-              <property name="filterChainDefinitions">
+              <property name="filterChainDefinitions">                     <!--Shire链接约束配置 -->
                      <ref bean="shiroFilterChainDefinitions"/>
               </property>
        </bean>
@@ -49,7 +49,7 @@
        </bean>
 
        <!-- 自定义会话管理配置 -->
-       <bean id="sessionManager" class="com.thinkgem.jeesite.common.security.shiro.session.SessionManager">
+       <bean id="sessionManager" class="com.ease.azeroth.security.session.SessionManager">
               <property name="sessionDAO" ref="sessionDAO"/>
 
               <!-- 会话超时时间，单位：毫秒  -->
